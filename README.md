@@ -7,7 +7,7 @@
 How can we predict customer returns, optimize logistics, and identify high-risk product categories to improve supply chain efficiency and profitability?
 
 #### Data Source
-The analysis will utilize a dataset such as the [DataCoSupplyChainDataset.csv](https://www.kaggle.com/code/adityabatsexemplary/supply-chain/input/) from Kaggle, which typically contains historical records on:
+The analysis will utilize a dataset the [DataCoSupplyChainDataset.csv](https://www.kaggle.com/code/adityabatsexemplary/supply-chain/input/) from Kaggle, which typically contains historical records on:
 * Order and Customer Information: Order IDs, dates, customer details, and shipping addresses.
 * Product Details: Product categories, prices, and quantities.
 * Logistics Data: Shipping modes, lead times, and shipping costs.
