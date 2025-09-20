@@ -1,38 +1,36 @@
-# SupplyChainOptimization-AI
+# Predicting Late Delivery Risk
 
-### Optimizing Supply Chain Performance Through Predictive Analytics
+## Project Overview
 
-#### Research Question
+This project focuses on building a predictive model to identify orders at risk of late delivery using the DataCo Supply Chain Dataset. Timely delivery is crucial for customer satisfaction and business success, and this project aims to provide a tool to proactively mitigate late deliveries.
 
-How can we predict customer returns, optimize logistics, and identify high-risk product categories to improve supply chain efficiency and profitability?
+## Data Source
 
-#### Data Source
-The analysis will utilize a dataset the [DataCoSupplyChainDataset.csv](https://www.kaggle.com/code/adityabatsexemplary/supply-chain/input/) from Kaggle, which typically contains historical records on:
-* Order and Customer Information: Order IDs, dates, customer details, and shipping addresses.
-* Product Details: Product categories, prices, and quantities.
-* Logistics Data: Shipping modes, lead times, and shipping costs.
-* Performance Metrics: Information on order status, returns, and associated costs.
+The dataset used for this project is the **DataCo Supply Chain Dataset**, available on Kaggle. It contains transaction records with various details about orders, shipping, customers, and products.
 
-#### Techniques
-The project will employ a multi-model approach, including:
-* Classification: To predict which orders are most likely to be returned based on features like product category, shipping method, or customer location.
-* Regression: To model and predict shipping costs or profitability for different logistics routes.
-* Clustering: To group products into segments based on their return rates, profit margins, or shipping characteristics, allowing for targeted strategies.
-* Time Series Analysis: To forecast demand and shipping volumes to inform inventory and resource planning.
+## Methodology
 
-#### Expected Results 
-The project will deliver:
-* A predictive model to flag high-risk orders for potential returns, enabling proactive customer service.
-* An optimized logistics model that recommends the most cost-effective shipping methods for different orders.
-* Actionable insights into which product categories or customer demographics are most likely to lead to returns or low profitability.
-* Data visualizations to help non-technical stakeholders understand key trends and bottlenecks in the supply chain.
+The project followed a standard machine learning workflow:
 
-#### Why This Question Is Important 
-For any business that moves physical goods, an inefficient supply chain is a major source of wasted time and money. If we don't understand the factors driving returns, excessive shipping costs, or logistical delays, we are simply reacting to problems after they happen. This leads to frustrated customers, lost revenue, and reduced profit margins.
+1.  **Data Loading and Cleaning**: Loaded the dataset, checked for and removed duplicate rows, and handled missing values by dropping columns with excessive missingness and dropping rows with a small number of missing values in key columns.
+2.  **Exploratory Data Analysis (EDA)**: Explored data distributions, relationships between numerical features (using a correlation matrix), and relationships between categorical features and the target variable (using count plots). Identified potential outliers but decided not to handle them at this stage based on domain considerations. Explored in-depth relationships between numerical and categorical features and the target variable using box plots.
+3.  **Feature Engineering**: Extracted temporal features (year, month, day, day of week) from order and shipping dates.
+4.  **Data Splitting**: Split the data into training and testing sets.
+5.  **Preprocessing**: Defined preprocessing pipelines using `ColumnTransformer` to handle numerical and categorical features. This included imputation for remaining missing values, scaling of numerical features, and one-hot encoding of categorical features. Irrelevant columns (identifiers, high cardinality, data leakage, original dates) were excluded. The preprocessor was applied to the training and testing data.
+6.  **Model Selection and Training**: Evaluated several classification models (Logistic Regression, Random Forest, KNN, Dummy Classifier, Decision Tree, Gradient Boosting). Defined pipelines for each model incorporating the preprocessing steps. Trained the models on the preprocessed training data.
+7.  **Hyperparameter Tuning**: Optimized the hyperparameters of the best-performing models (Random Forest and Gradient Boosting) using RandomizedSearchCV.
+8.  **Model Evaluation**: Evaluated the tuned models on the test data using metrics such as Accuracy, ROC-AUC, Confusion Matrix, Precision, Recall, and F1-score. Plotted ROC curves for visual comparison.
+9.  **Model Interpretation**: Analyzed feature importances from the tuned Random Forest and Gradient Boosting models to understand the key predictors of late delivery risk.
+10. **Final Model Selection**: Selected Random Forest as the final model based on its performance and robustness.
+11. **Model Saving**: Saved the trained Random Forest model pipeline.
 
-By answering this question, our analysis will provide the business with foresight. We will be able to pinpoint the root causes of inefficiencies before they escalate. This will allow management to:
-* Reduce Costs: By minimizing returns and optimizing shipping, we can directly cut operational expenses.
-* Increase Profitability: We can focus resources on the most profitable products and customer segments.
-* Improve Customer Experience: By identifying issues that lead to returns, we can enhance product quality or adjust logistics to prevent future problems, resulting in happier and more loyal customers.
+## Key Findings
 
-In short, this project is not just about crunching numbers; it's about transforming the supply chain from a reactive cost center into a strategic advantage that fuels growth and customer loyalty.
+*   Features related to **shipping mode**, **order status** (particularly 'SUSPECTED_FRAUD' and 'CANCELED'), and **temporal features** (day of the week for order and shipping dates) were identified as the most important predictors of late delivery risk.
+*   The chosen Random Forest model achieved strong performance metrics in predicting late delivery risk.
+
+## How to Run the Code
+
+To run the code in this project:
+
+1.  Ensure you have a Python environment with the necessary libraries installed (e.g., pandas, numpy, scikit-learn, matplotlib, seaborn, joblib). You can install them using pip:
